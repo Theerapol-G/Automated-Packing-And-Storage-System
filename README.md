@@ -43,6 +43,24 @@ This station acts as the brain of the user interaction and the inventory buffer.
 
 * Dispensing System: It stored the items and physically dispense the items to Station 3 based on the specific sequence programmed by the operator.
 
+**Example Snippet: HMI to PLC/Arduino Serial Communication**
+```python
+def _start_processing(self) -> None:
+    """Trigger the shape processing and send configuration to Arduino."""
+    # Get the shapes from the selected configuration (e.g., Circle, Square)
+    config_data = self.saved_configs.get(self.selected_config, {})
+    shapes_str = " ".join([config_data.get(key, "none") for key in ["TL", "TR", "BL", "BR"]])
+    
+    # Format the command string: "Q:(quantity) P:(shape1) (shape2) (shape3) (shape4)"
+    command = f"Q:{self.required_quantity} P:{shapes_str}"
+    
+    # Send the command via Serial Port
+    if self.serial_port and self.serial_port.is_open:
+        self.serial_port.write(command.encode())
+        self.is_processing = True
+        self._update_process_monitor()
+```
+
 ## Station 3: Pick & Place (Robotic Manipulation)
 
 ![Station 3](Media/Station_3.png)
