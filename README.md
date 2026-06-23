@@ -59,9 +59,9 @@ This station ensures product quality using Computer Vision algorithms (OpenCV).
 * Perception Pipeline: It housed the camera which is used to check to item in the box. The system runs a script for "White Box Shape Detection" to verify that the item placed inside matches the original order generated at Station 2.
 * Lid Management: This station is also integrated with the system that stored and dispense the lid, working in tandem with the visual pass/fail logic.
 
-Example code
+Example code:
 
-(```python)
+```python
 # Example Snippet: Shape Classification Pipeline (Station 4)
 def detect_shape(frame, target_shape):
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -84,7 +84,7 @@ def detect_shape(frame, target_shape):
             shape = "Circle"
             
         return check_quality(shape, target_shape)
-(```)
+```
 
 ## Station 5: Faulty Unit Separation (Reject Station)
 
